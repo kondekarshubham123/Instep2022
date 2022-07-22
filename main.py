@@ -74,6 +74,10 @@ def drugs():
         db.session.commit()
         return redirect(url_for('main.drugs'))
 
+@main.route('/patientprofile',methods=['GET', 'POST'])
+@login_required
+def patientprofile():
+    return render_template('patientprofile.html', nume=current_user.name)
 
 app = create_app() # we initialize our flask app using the __init__.py function
 if __name__ == '__main__':
