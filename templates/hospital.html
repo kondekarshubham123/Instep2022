@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if all_hospitals_data %}
+    <table class="table">
+        <tr>
+            <th>Sr.</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Report</th>
+        </tr>
+        {% for hos in all_hospitals_data %}
+        <tr>
+            <td>{{hos[0]}}</td>
+            <td>{{hos[1].name}}</td>
+            <td>{{hos[1].email}}</td>
+            <td><a href="">report</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    {% if not all_hospitals_data %}
+        Hospital Details not available
+    {% endif %}
+{% endblock %}
