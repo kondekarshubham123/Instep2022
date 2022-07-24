@@ -31,7 +31,7 @@ def hospital():
 @login_required
 def patient():
     if request.method=='GET':
-        all_patient_data = enumerate(User.query.filter_by(registration_type="Patient").all(),start=1)
+        all_patient_data = list(enumerate(User.query.filter_by(registration_type="Patient").all(),start=1))
         return render_template('patient.html', name=current_user.name,all_patient_data=all_patient_data)
     else:
         patient_name = request.form.get('patient_name')
