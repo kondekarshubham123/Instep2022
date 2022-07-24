@@ -5,6 +5,7 @@ import re
 from flask import Blueprint, render_template, flash, request, redirect, url_for
 from flask_login import login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+import dummy_data
 from __init__ import create_app, db
 from models import Drugs, User
 
@@ -75,9 +76,7 @@ def drugs():
         drug_name = request.form.get('drug_name')
         drug_context = request.form.get('drug_context')
         drug_indication = request.form.get('drug_indication')
-        new_drug = Drugs(drug_name=drug_name,drug_details=drug_context,drug_indication=drug_indication)
-        db.session.add(new_drug)
-        db.session.commit()
+        Drugs.create(drug_name,drug_indication,drug_context)
         return redirect(url_for('main.drugs'))
 
 @main.route('/patientprofile',methods=['GET', 'POST'])
@@ -100,6 +99,11 @@ def scan():
     return render_template('scan.html',name=current_user)
 
 app = create_app() # we initialize our flask app using the __init__.py function
+
+@app.before_first_request
+def insert_test_data():
+    dummy_data.insert_dummy_data()
+
 if __name__ == '__main__':
     db.create_all(app=create_app()) # create the SQLite database
     app.run(debug=True) # run the flask app on debug mode
