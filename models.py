@@ -1,6 +1,7 @@
 import datetime
 from random import randint
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash
 from __init__ import db
 
 class User(UserMixin, db.Model):
@@ -9,6 +10,18 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
     registration_type = db.Column(db.String(100))
+
+    def __init__(self,email,password,name,registration_type) -> None:
+        self.email=email
+        self.password=password
+        self.name=name
+        self.registration_type=registration_type
+    
+    @staticmethod
+    def create(email,password,name,registration_type):
+        new_user = User(email,generate_password_hash(password, method='sha256'),name,registration_type)
+        db.session.add(new_user)
+        db.session.commit()
 
 class Drugs(db.Model):
     id = db.Column(db.Integer, primary_key=True)    
