@@ -15,7 +15,6 @@
                             <th>Email</th>
                             <th>City</th>
                             <th>Created</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -24,24 +23,10 @@
                             <td class="is-image-cell">{{ idx }}</td>
                             <td data-label="Name">{{ hos.name }}</td>
                             <td data-label="Company">{{ hos.name }}</td>
-                            <td data-label="City">{{ hos.email }}</td>
-                            <td data-label="Progress" class="is-progress-cell">
-                                <progress max="100" class="progress is-small is-primary"
-                                    value="90">90</progress>
-                            </td>
+                            <td data-label="Email">{{ hos.email }}</td>
+                            <td data-label="City">California</td>
                             <td data-label="Created">
                                 <small class="has-text-grey is-abbr-like" title="24-July">24 July</small>
-                            </td>
-                            <td class="is-actions-cell">
-                                <div class="buttons is-right">
-                                    <button class="button is-small is-primary" type="button">
-                                        <span class="icon"><i class="mdi mdi-eye"></i></span>
-                                    </button>
-                                    <button class="button is-small is-danger jb-modal" data-target="sample-modal"
-                                        type="button">
-                                        <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                                    </button>
-                                </div>
                             </td>
                         </tr>
                         {% endfor %}
