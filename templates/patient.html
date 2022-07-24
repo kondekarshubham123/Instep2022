@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block header %}
+<form method="POST" action="/patient">
+<div class="columns">
+    <div class="column is-2 is-offset-1">
+        <div class="field">
+            <div class="control">
+                <input class="input is-large" type="text" name="patient_name" placeholder="patient name" autofocus="">
+            </div>
+        </div>
+    </div>
+    <div class="column is-2 is-offset-2">
+        <div class="field">
+            <div class="control">
+                <input class="input is-large" type="text" name="patient_email" placeholder="patient email" autofocus="">
+            </div>
+        </div>
+    </div>
+    <div class="column is-2 is-offset-2">
+        <button class="button is-block is-info is-large is-fullwidth">Add patient</button>
+    </div>
+</div>
+</form>
+{% endblock %}
+
+{% block content %}
+{% if all_patient_data %}
+<!-- <td><a href="{{ url_for('main.patientprofile') }}">Health Report</a></td> -->
+<section class="section">
+    <div class="container">
+        <div class="b-table">
+            <div class="table-wrapper has-mobile-cards">
+                <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Sr</th>
+                            <th>Patient Name</th>
+                            <th>Email</th>
+                            <th>City</th>
+                            <th>Created</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for idx,pat in all_patient_data %}
+                        <tr>
+                            <td class="is-image-cell">{{ idx }}</td>
+                            <td data-label="Name">{{ pat.name }}</td>
+                            <td data-label="email">{{ pat.email }}</td>
+                            <td data-label="City">Banglore</td>
+                            <td data-label="Created">
+                                <small class="has-text-grey is-abbr-like" title="24-July">24 July</small>
+                            </td>
+                            <td class="is-actions-cell">
+                                <div class="buttons is-right">
+                                    <a href="{{ url_for('main.patientprofile',email=pat.email) }}">
+                                    <button class="button is-small is-primary" type="button">
+                                        <span class="icon"><i class="mdi mdi-eye"></i></span>
+                                    </button>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% if not all_patient_data %}
+<section class="section">
+    <div class="container">
+        <div class="b-table">
+            <div class="table-wrapper has-mobile-cards">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sr</th>
+                            <th>Name</th>
+                            <th>Hospital Name</th>
+                            <th>Email</th>
+                            <th>City</th>
+                            <th>Created</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="is-empty">
+                            <td colspan="7">
+                                <section class="section">
+                                    <div class="content has-text-grey has-text-centered">
+                                        <p><span class="icon is-large"><i
+                                                    class="mdi mdi-emoticon-sad mdi-48px"></i></span></p>
+                                        <p>Nothing's there&hellip;</p>
+                                    </div>
+                                </section>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bulma.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/main.min.css') }}">
+<!-- Icons below are for demo-only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+{% endblock %}

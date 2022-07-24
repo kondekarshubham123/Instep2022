@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="notification is-success">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
+<form method="POST" action="/syncup">
+    <h1 class="title">
+        <button class="button is-block is-info is-large is-fullwidth">Syncup data from my watch</button>
+    </h1>
+</form>
+{% endblock %}

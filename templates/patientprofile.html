@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="columns">
+        <div class="column is-12">
+            <section class="hero is-info welcome is-small">
+                <div class="hero-body">
+                    <div class="container">
+                        <h1 class="title">
+                            {{ patient.name }}
+                        </h1>
+                        <h2 class="subtitle">
+                            On Clinical Trial
+                        </h2>
+                    </div>
+                </div>
+            </section>
+            <section class="info-tiles">
+                <div class="tile is-ancestor has-text-centered">
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title">92</p>
+                            <p class="subtitle">(beates per min)</p>
+                            Heart Rate
+                        </article>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title">37</p>
+                            <p class="subtitle">Degrees Celsius</p>
+                            Body Temperature
+                        </article>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title">98 %</p>
+                            <p class="subtitle">Normal</p>
+                            SpO2 Measure
+                        </article>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title">19</p>
+                            <p class="subtitle">Days left</p>
+                            To complete the trial
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <div class="columns">
+                <div class="column is-6">
+                    <div class="card events-card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                Syncup Data
+                            </p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                                <span class="icon">
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                        </header>
+                        <div class="card-table">
+                            <div class="content">
+                                <table class="table is-fullwidth is-striped">
+                                    <tbody>
+                                        {% for i in range(10) %}
+                                        <tr>
+                                            <td width="5%"><i class="fa fa-bell-o"></i></td>
+                                            <td>Lorum ipsum dolem aire</td>
+                                            <td class="level-right"><a class="button is-small is-primary"
+                                                    href="#">Notify</a></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <footer class="card-footer">
+                            <a href="#" class="card-footer-item">View All</a>
+                        </footer>
+                    </div>
+                </div>
+                <div class="column is-6">
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                Disease search
+                            </p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                                <span class="icon">
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                                <div class="control has-icons-left has-icons-right">
+                                    <input class="input is-large" type="text" placeholder="">
+                                    <span class="icon is-medium is-left">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                    <span class="icon is-medium is-right">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                User Search
+                            </p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                                <span class="icon">
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                                <div class="control has-icons-left has-icons-right">
+                                    <input class="input is-large" type="text" placeholder="">
+                                    <span class="icon is-medium is-left">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                    <span class="icon is-medium is-right">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        </header>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <script async type="text/javascript" src="../js/bulma.js"></script> -->
+{% endblock %}
