@@ -1,299 +1,143 @@
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin - Free Bulma template</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <!-- Bulma Version 0.9.0-->
-    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="../css/admin.css"> -->
-    <style>
-        html, body {
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-          font-size: 16px;
-          line-height: 1.5;
-          height: 100%;
-          background: #ECF0F3;
-        }
-        nav.navbar {
-          border-top: 4px solid #276cda;
-          margin-bottom: 1rem;
-        }
-        .navbar-item.brand-text {
-          font-weight: 300;
-        }
-        .navbar-item, .navbar-link {
-          font-size: 14px;
-          font-weight: 700;
-        }
-        .columns {
-          width: 100%;
-          height: 100%;
-          margin-left: 0;
-        }
-        .menu-label {
-          color: #8F99A3;
-          letter-spacing: 1.3;
-          font-weight: 700;
-        }
-        .menu-list a {
-          color: #0F1D38;
-          font-size: 14px;
-          font-weight: 700;
-        }
-        .menu-list a:hover {
-          background-color: transparent;
-          color: #276cda;
-        }
-        .menu-list a.is-active {
-          background-color: transparent;
-          color: #276cda;
-          font-weight: 700;
-        }
-        .card {
-          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
-          margin-bottom: 2rem;
-        }
-        .card-header-title {
-          color: #8F99A3;
-          font-weight: 400;
-        }
-        .info-tiles {
-          margin: 1rem 0;
-        }
-        .info-tiles .subtitle {
-          font-weight: 300;
-          color: #8F99A3;
-        }
-        .hero.welcome.is-info {
-          background: #36D1DC;
-          background: -webkit-linear-gradient(to right, #5B86E5, #36D1DC);
-          background: linear-gradient(to right, #5B86E5, #36D1DC);
-        }
-        .hero.welcome .title, .hero.welcome .subtitle {
-          color: hsl(192, 17%, 99%);
-        }
-        .card .content {
-          font-size: 14px;
-        }
-        .card-footer-item {
-          font-size: 14px;
-          font-weight: 700;
-          color: #8F99A3;
-        }
-        .card-footer-item:hover {
-        }
-        .card-table .table {
-          margin-bottom: 0;
-        }
-        .events-card .card-table {
-          max-height: 250px;
-          overflow-y: scroll;
-        }
-    </style>
-</head>
-
-<body>
-
-    <!-- START NAV -->
-    <nav class="navbar">
-        <div class="container">
-
-            <div id="navbarMenuHeroA" class="navbar-menu">
-                <div class="navbar-end">
-                    <a href="{{ url_for('main.index') }}" class="navbar-item">
-                        Home
-                    </a>
-                    {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('main.profile') }}" class="navbar-item">
-                        Profile
-                    </a>
-                    {% endif %}
-                    {% if not current_user.is_authenticated %}
-                    <a href="{{ url_for('auth.login') }}" class="navbar-item">
-                        Login
-                    </a>
-                    <a href="{{ url_for('auth.signup') }}" class="navbar-item">
-                        Sign Up
-                    </a>
-                    {% endif %}
-                    {% if current_user.is_authenticated %}
-
-                    {% if current_user.registration_type == "organization"%}
-                    <a href="{{ url_for('main.hospital') }}" class="navbar-item">
-                        Hospitals
-                    </a>
-                    <a href="{{ url_for('main.drugs') }}" class="navbar-item">
-                        Drugs
-                    </a>
-                    {% endif %}
-                    
-                    {% if current_user.registration_type == "Hospital"%}
-                    <a href="{{ url_for('main.patient') }}" class="navbar-item">
-                        Patient
-                    </a>
-                    {% endif %}
-                    
-                    {% if current_user.registration_type == "Patient"%}
-                    <a href="{{ url_for('main.syncup') }}" class="navbar-item">
-                        Sync up
-                    </a>
-                    <a href="{{ url_for('main.images') }}" class="navbar-item">
-                        Upload images
-                    </a>                        
-                    {% endif %}
-
-                    <a href="{{ url_for('auth.logout') }}" class="navbar-item">
-                        Logout
-                    </a>
-                    {% endif %}
+{% block body %}
+<div class="container">
+    <div class="columns">
+        <div class="column is-12">
+            <section class="hero is-info welcome is-small">
+                <div class="hero-body">
+                    <div class="container">
+                        <h1 class="title">
+                            {{ patient.name }}
+                        </h1>
+                        <h2 class="subtitle">
+                            On Clinical Trial
+                        </h2>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </nav>
-    <!-- END NAV -->
-    <div class="container">
-        <div class="columns">
-            <div class="column is-12">
-                <section class="hero is-info welcome is-small">
-                    <div class="hero-body">
-                        <div class="container">
-                            <h1 class="title">
-                                { patient_name }
-                            </h1>
-                            <h2 class="subtitle">
-                                On Clinical Trial
-                            </h2>
-                        </div>
+            </section>
+            <section class="info-tiles">
+                <div class="tile is-ancestor has-text-centered">
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title">92</p>
+                            <p class="subtitle">(beates per min)</p>
+                            Heart Rate
+                        </article>
                     </div>
-                </section>
-                <section class="info-tiles">
-                    <div class="tile is-ancestor has-text-centered">
-                        <div class="tile is-parent">
-                            <article class="tile is-child box">
-                                <p class="title">92</p>
-                                <p class="subtitle">(beates per min)</p>
-                                Heart Rate
-                            </article>
-                        </div>
-                        <div class="tile is-parent">
-                            <article class="tile is-child box">
-                                <p class="title">37</p>
-                                <p class="subtitle">Degrees Celsius</p>
-                                Body Temperature
-                            </article>
-                        </div>
-                        <div class="tile is-parent">
-                            <article class="tile is-child box">
-                                <p class="title">98 %</p>
-                                <p class="subtitle">Normal</p>
-                                SpO2 Measure
-                            </article>
-                        </div>
-                        <div class="tile is-parent">
-                            <article class="tile is-child box">
-                                <p class="title">19</p>
-                                <p class="subtitle">Days left</p>
-                                To complete the trial
-                            </article>
-                        </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title">37</p>
+                            <p class="subtitle">Degrees Celsius</p>
+                            Body Temperature
+                        </article>
                     </div>
-                </section>
-                <div class="columns">
-                    <div class="column is-6">
-                        <div class="card events-card">
-                            <header class="card-header">
-                                <p class="card-header-title">
-                                    Syncup Data
-                                </p>
-                                <a href="#" class="card-header-icon" aria-label="more options">
-                  <span class="icon">
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                  </span>
-                </a>
-                            </header>
-                            <div class="card-table">
-                                <div class="content">
-                                    <table class="table is-fullwidth is-striped">
-                                        <tbody>
-                                            {% for i in range(10) %}
-                                            <tr>
-                                                <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                                <td>Lorum ipsum dolem aire</td>
-                                                <td class="level-right"><a class="button is-small is-primary" href="#">Notify</a></td>
-                                            </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title">98 %</p>
+                            <p class="subtitle">Normal</p>
+                            SpO2 Measure
+                        </article>
+                    </div>
+                    <div class="tile is-parent">
+                        <article class="tile is-child box">
+                            <p class="title">19</p>
+                            <p class="subtitle">Days left</p>
+                            To complete the trial
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <div class="columns">
+                <div class="column is-6">
+                    <div class="card events-card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                Syncup Data
+                            </p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                                <span class="icon">
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                        </header>
+                        <div class="card-table">
+                            <div class="content">
+                                <table class="table is-fullwidth is-striped">
+                                    <tbody>
+                                        {% for i in range(10) %}
+                                        <tr>
+                                            <td width="5%"><i class="fa fa-bell-o"></i></td>
+                                            <td>Lorum ipsum dolem aire</td>
+                                            <td class="level-right"><a class="button is-small is-primary"
+                                                    href="#">Notify</a></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
-                            <footer class="card-footer">
-                                <a href="#" class="card-footer-item">View All</a>
-                            </footer>
                         </div>
+                        <footer class="card-footer">
+                            <a href="#" class="card-footer-item">View All</a>
+                        </footer>
                     </div>
-                    <div class="column is-6">
-                        <div class="card">
-                            <header class="card-header">
-                                <p class="card-header-title">
-                                    Inventory Search
-                                </p>
-                                <a href="#" class="card-header-icon" aria-label="more options">
-                  <span class="icon">
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                  </span>
-                </a>
-                            </header>
-                            <div class="card-content">
-                                <div class="content">
-                                    <div class="control has-icons-left has-icons-right">
-                                        <input class="input is-large" type="text" placeholder="">
-                                        <span class="icon is-medium is-left">
-                      <i class="fa fa-search"></i>
-                    </span>
-                                        <span class="icon is-medium is-right">
-                      <i class="fa fa-check"></i>
-                    </span>
-                                    </div>
+                </div>
+                <div class="column is-6">
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                Disease search
+                            </p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                                <span class="icon">
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                                <div class="control has-icons-left has-icons-right">
+                                    <input class="input is-large" type="text" placeholder="">
+                                    <span class="icon is-medium is-left">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                    <span class="icon is-medium is-right">
+                                        <i class="fa fa-check"></i>
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <header class="card-header">
-                                <p class="card-header-title">
-                                    User Search
-                                </p>
-                                <a href="#" class="card-header-icon" aria-label="more options">
-                  <span class="icon">
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                  </span>
-                </a>
-                            </header>
-                            <div class="card-content">
-                                <div class="content">
-                                    <div class="control has-icons-left has-icons-right">
-                                        <input class="input is-large" type="text" placeholder="">
-                                        <span class="icon is-medium is-left">
-                      <i class="fa fa-search"></i>
-                    </span>
-                                        <span class="icon is-medium is-right">
-                      <i class="fa fa-check"></i>
-                    </span>
-                                    </div>
+                    </div>
+                    <div class="card">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                User Search
+                            </p>
+                            <a href="#" class="card-header-icon" aria-label="more options">
+                                <span class="icon">
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                                <div class="control has-icons-left has-icons-right">
+                                    <input class="input is-large" type="text" placeholder="">
+                                    <span class="icon is-medium is-left">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                    <span class="icon is-medium is-right">
+                                        <i class="fa fa-check"></i>
+                                    </span>
                                 </div>
                             </div>
                         </div>
+                        </header>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- <script async type="text/javascript" src="../js/bulma.js"></script> -->
-</body>
-
-</html>
+</div>
+<!-- <script async type="text/javascript" src="../js/bulma.js"></script> -->
+{% endblock %}

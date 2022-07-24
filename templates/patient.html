@@ -26,24 +26,88 @@
 
 {% block content %}
 {% if all_patient_data %}
-<table class="table">
-    <tr>
-        <th>Sr.</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Health Report</th>
-    </tr>
-    {% for sr,pati in all_patient_data %}
-    <tr>
-        <td>{{sr}}</td>
-        <td>{{pati.name}}</td>
-        <td>{{pati.email}}</td>
-        <td><a href="{{ url_for('main.patientprofile') }}">Health Report</a></td>
-    </tr>
-    {% endfor %}
-</table>
+<!-- <td><a href="{{ url_for('main.patientprofile') }}">Health Report</a></td> -->
+<section class="section">
+    <div class="container">
+        <div class="b-table">
+            <div class="table-wrapper has-mobile-cards">
+                <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Sr</th>
+                            <th>Patient Name</th>
+                            <th>Email</th>
+                            <th>City</th>
+                            <th>Created</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for idx,pat in all_patient_data %}
+                        <tr>
+                            <td class="is-image-cell">{{ idx }}</td>
+                            <td data-label="Name">{{ pat.name }}</td>
+                            <td data-label="email">{{ pat.email }}</td>
+                            <td data-label="City">Banglore</td>
+                            <td data-label="Created">
+                                <small class="has-text-grey is-abbr-like" title="24-July">24 July</small>
+                            </td>
+                            <td class="is-actions-cell">
+                                <div class="buttons is-right">
+                                    <a href="{{ url_for('main.patientprofile',email=pat.email) }}">
+                                    <button class="button is-small is-primary" type="button">
+                                        <span class="icon"><i class="mdi mdi-eye"></i></span>
+                                    </button>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
 {% endif %}
 {% if not all_patient_data %}
-    Patient data is not available
+<section class="section">
+    <div class="container">
+        <div class="b-table">
+            <div class="table-wrapper has-mobile-cards">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sr</th>
+                            <th>Name</th>
+                            <th>Hospital Name</th>
+                            <th>Email</th>
+                            <th>City</th>
+                            <th>Created</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="is-empty">
+                            <td colspan="7">
+                                <section class="section">
+                                    <div class="content has-text-grey has-text-centered">
+                                        <p><span class="icon is-large"><i
+                                                    class="mdi mdi-emoticon-sad mdi-48px"></i></span></p>
+                                        <p>Nothing's there&hellip;</p>
+                                    </div>
+                                </section>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
 {% endif %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bulma.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/main.min.css') }}">
+<!-- Icons below are for demo-only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 {% endblock %}

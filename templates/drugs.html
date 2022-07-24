@@ -2,46 +2,127 @@
 
 {% block header %}
 <form method="POST" action="/drugs">
+<div class="container">
 <div class="columns">
-    <div class="column is-2 is-offset-1">
+    <div class="column">
         <div class="field">
             <div class="control">
                 <input class="input is-large" type="text" name="drug_name" placeholder="Drug name" autofocus="">
             </div>
         </div>
     </div>
-    <div class="column is-2 is-offset-2">
+    <div class="column">
+      <div class="field">
+          <div class="control">
+              <input class="input is-large" type="text" name="drug_indication" placeholder="Drug Indication" autofocus="">
+          </div>
+      </div>
+    </div>
+    <div class="column">
         <div class="field">
             <div class="control">
                 <input class="input is-large" type="text" name="drug_context" placeholder="Drug Details" autofocus="">
             </div>
         </div>
     </div>
-    <div class="column is-2 is-offset-2">
+    <div class="column">
         <button class="button is-block is-info is-large is-fullwidth">Add Drug</button>
     </div>
+</div>
 </div>
 </form>
 {% endblock %}
 
 {% block content %}
 {% if drug_names %}
-<table class="table">
-    <tr>
-        <th>Sr.</th>
-        <th>Name</th>
-        <th>Drug Details</th>
-    </tr>
-    {% for drug in drug_names %}
-    <tr>
-        <td>{{drug.id}}</td>
-        <td>{{drug.drug_name}}</td>
-        <td>{{drug.drug_details}}</td>
-    </tr>
-    {% endfor %}
-</table>
+<section class="section">
+  <div class="container">
+    <div class="b-table">
+      <div class="table-wrapper has-mobile-cards">
+        <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
+          <thead>
+          <tr>
+            <th>Sr</th>
+            <th>Name</th>
+            <th>Details</th>
+            <th>Indication</th>
+            <th>Progress</th>
+            <th>Created</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for idx,drug in drug_names %}
+          <tr>
+            <td class="is-image-cell">{{ idx }}</td>
+            <td data-label="Name">{{ drug.drug_name }}</td>
+            <td data-label="Company">{{ drug.drug_details }}</td>
+            <td data-label="City">{{ drug.drug_indication }}</td>
+            <td data-label="Progress" class="is-progress-cell">
+              <progress max="100" class="progress is-small is-primary" value="{{ drug.drug_process }}">{{ drug.drug_process }}</progress>
+            </td>
+            <td data-label="Created">
+              <small class="has-text-grey is-abbr-like" title="{{ drug.drug_date }}">{{ drug.drug_date }}</small>
+            </td>
+            <td class="is-actions-cell">
+              <div class="buttons is-right">
+                <a href="{{ url_for('main.drugdetail',drug=drug.drug_name) }}">
+                  <button class="button is-small is-primary" type="button">
+                    <span class="icon"><i class="mdi mdi-eye"></i></span>
+                  </button>
+                </a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
 {% endif %}
 {% if not drug_names %}
-    Please add a drug for Clinical Trial
+
+<section class="section">
+  <div class="container">
+    <div class="b-table">
+      <div class="table-wrapper has-mobile-cards">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Sr</th>
+            <th>Name</th>
+            <th>Details</th>
+            <th>Indication</th>
+            <th>Progress</th>
+            <th>Created</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="is-empty">
+            <td colspan="7">
+              <section class="section">
+                <div class="content has-text-grey has-text-centered">
+                  <p><span class="icon is-large"><i class="mdi mdi-emoticon-sad mdi-48px"></i></span></p>
+                  <p>Nothing's there&hellip;</p>
+                </div>
+              </section>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
 {% endif %}
+
+
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bulma.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='css/main.min.css') }}">
+<!-- Icons below are for demo-only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+
 {% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="column is-4 is-offset-4">
+    <div class="box">
+        <figure class="avatar">
+            <img src="{{ url_for('static',filename='images/doctor.webp') }}">
+        </figure>
+        <div class="field">
+            <div class="control">
+                <p class="is-large">Dr. Alexander Fleming</p>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <p class="is-large">+91 9999999999</p>
+            </div>
+        </div>
+        <button class="button is-block is-success is-large is-fullwidth">Call now <i class="fa fa-sign-in"
+                    aria-hidden="true"></i></button>
+    </div>
+</div>
+{% endblock %}
