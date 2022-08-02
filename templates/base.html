@@ -85,8 +85,6 @@
           font-weight: 700;
           color: #8F99A3;
         }
-        .card-footer-item:hover {
-        }
         .card-table .table {
           margin-bottom: 0;
         }
@@ -96,14 +94,78 @@
         }
 
     </style>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
 <section class="hero is-fullheight" style="background-color:#eff3f2;">
 
-    <div class="hero-head">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- <a class="navbar-brand" href="#">Instep Bizhacks</a> -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('main.index') }}">Home <span class="sr-only">(current)</span></a>
+        </li>    
+
+        {% if not current_user.is_authenticated %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('auth.login') }}">Login <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('auth.signup') }}">Signup <span class="sr-only">(current)</span></a>
+        </li>
+        {% endif %}   
+
+        {% if current_user.is_authenticated %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for('main.profile') }}">Profile <span class="sr-only">(current)</span></a>
+        </li>
+          {% if current_user.registration_type == "organization"%}
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('main.hospital') }}">Hospitals <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('main.drugs') }}">Drugs <span class="sr-only">(current)</span></a>
+          </li>
+          {% endif %}
+          
+          {% if current_user.registration_type == "Hospital"%}
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('main.patient') }}">Patient <span class="sr-only">(current)</span></a>
+          </li>
+          {% endif %}
+          
+          {% if current_user.registration_type == "Patient"%}
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('main.syncup') }}">Sync up <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('main.images') }}">Upload images <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('main.scan') }}">QR Scan <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('main.calldoc') }}">Call my doctor <span class="sr-only">(current)</span></a>
+          </li>
+          {% endif %}
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout <span class="sr-only">(current)</span></a>
+          </li>
+          {% endif %}
+      </ul>
+    </div>
+  </nav>
+    <!-- <div class="hero-head">
         <nav class="navbar">
             <div class="container">
 
@@ -165,7 +227,7 @@
                 </div>
             </div>
         </nav>
-    </div>
+    </div> -->
     {% block body %} {% endblock %}
 
     {% block header %} {% endblock %}
